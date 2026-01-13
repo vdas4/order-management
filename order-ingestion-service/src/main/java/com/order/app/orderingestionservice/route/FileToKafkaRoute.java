@@ -16,8 +16,10 @@ public class FileToKafkaRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("file:orders-inbox?noop=true")
+        from("file:C:/microservice-poc/order-management/order-ingestion-service/orders-inbox?noop=true")
                 .routeId("file-to-kafka")
+                .log("Camel is watching the orders-inbox directory for new files.")
+                .log("File received: ${header.CamelFileName}")
                 .idempotentConsumer(header("CamelFileName"), idempotentRepository)
                 .log("Processing file: ${header.CamelFileName}")
                 .unmarshal().json(Order.class)
