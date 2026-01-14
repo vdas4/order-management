@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: inventoryservice
+  kafka:
+    bootstrap-servers: localhost:9092
+
+camel:
+  component:
+    kafka:
+      brokers: localhost:9092
+      group-id: inventory-service
+      auto-offset-reset: earliest
+      consumers-count: 1
+      poll-timeout-ms: 3000
+      seek-to: beginning
+  main:
+    run-controller: true
+    log-startup-summary: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus,camelroutes
+  camelroutes:
+    enabled: true
+server:
+  port: 8081
