@@ -1,0 +1,24 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: notification-service
+  kafka:
+    bootstrap-servers: localhost:9092
+
+camel:
+  component:
+    kafka:
+        brokers: localhost:9092
+    main:
+        run-controller: true
+        log-startup-summary: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus,camelroutes
+  camelroutes:
+    enabled: true
