@@ -23,6 +23,7 @@ public class FileToKafkaRoute extends RouteBuilder {
                 .idempotentConsumer(header("CamelFileName"), idempotentRepository)
                 .log("Processing file: ${header.CamelFileName}")
                 .unmarshal().json(Order.class)
-                .to("kafka:orders.new");
+                .to("kafka:orders.new")
+                .log("Order sent to Kafka topic 'orders.new': ${body}");
     }
 }
