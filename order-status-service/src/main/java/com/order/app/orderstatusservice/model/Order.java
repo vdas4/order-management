@@ -1,21 +1,14 @@
-package com.order.app.orderstatusservice.entity;
+package com.order.app.orderstatusservice.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderStatusEntity {
-
-    @Id
+public class Order {
     private String orderId;
-
     private String product;
     private int qty;
-    private String status;
 }

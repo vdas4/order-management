@@ -11,8 +11,8 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
   datasource:
-    url: jdbc:h2:mem:orders
-    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:orders_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
     username: sa
     password:
     hikari:
@@ -39,10 +39,6 @@ camel:
   component:
     kafka:
       brokers: localhost:9092
-      group-id: order-status
-      auto-offset-reset: earliest
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   main:
     run-controller: true
     log-startup-summary: true
