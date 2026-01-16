@@ -21,16 +21,16 @@ public class StatusRoutes extends RouteBuilder {
     @Override
     public void configure() {
 
-        from("kafka:orders.validated")
+        from("kafka:orders.validated?consumersCount=1")
                 .unmarshal().json(JsonLibrary.Jackson, Order.class)
-                .bean(service, "save(${body}, 'VALIDATED')");
+                .bean(service, "saveOrUpdate(${body}, 'VALIDATED')");
 
-        from("kafka:orders.rejected")
+        from("kafka:orders.rejected?consumersCount=1")
                 .unmarshal().json(JsonLibrary.Jackson, Order.class)
-                .bean(service, "save(${body}, 'REJECTED')");
+                .bean(service, "saveOrUpdate(${body}, 'REJECTED')");
 
-        from("kafka:orders.notified")
+        from("kafka:orders.notified?consumersCount=1")
                 .unmarshal().json(JsonLibrary.Jackson, Order.class)
-                .bean(service, "save(${body}, 'NOTIFIED')");
+                .bean(service, "saveOrUpdate(${body}, 'NOTIFIED')");
     }
 }

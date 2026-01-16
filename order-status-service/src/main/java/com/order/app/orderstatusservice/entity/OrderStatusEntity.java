@@ -16,6 +16,6 @@ public class OrderStatusEntity {
     private String orderId;
 
     private String product;
-    private int qty;
+    private int quantity;
     private String status;
 }

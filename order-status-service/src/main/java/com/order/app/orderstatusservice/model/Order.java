@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class Order {
     private String orderId;
     private String product;
-    private int qty;
+    private int quantity;
 }

@@ -19,13 +19,25 @@ public class OrderStatusService {
         this.repo = repo;
     }
 
-    public void save(Order order, String status) {
-        OrderStatusEntity entity = new OrderStatusEntity(
-                order.getOrderId(),
+    @Transactional
+    public void saveOrUpdate(Order order, String status) {
+
+        String orderId = order.getOrderId().trim();
+
+        int updated = repo.updateStatus(
+                orderId,
                 order.getProduct(),
-                order.getQty(),
+                order.getQuantity(),
                 status
         );
-        repo.save(entity);
+
+        if(updated == 0) {
+            OrderStatusEntity entity = new OrderStatusEntity();
+            entity.setOrderId(orderId);
+            entity.setProduct(order.getProduct());
+            entity.setQuantity(order.getQuantity());
+            entity.setStatus(status);
+            repo.save(entity);
+        }
     }
 }
