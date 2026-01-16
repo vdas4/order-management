@@ -64,6 +64,10 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring-redis</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-ftp-starter</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
