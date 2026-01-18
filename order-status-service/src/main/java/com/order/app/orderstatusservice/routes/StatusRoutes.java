@@ -23,14 +23,14 @@ public class StatusRoutes extends RouteBuilder {
 
         from("kafka:orders.validated?consumersCount=1")
                 .unmarshal().json(JsonLibrary.Jackson, Order.class)
-                .bean(service, "saveOrUpdate(${body}, 'VALIDATED')");
+                .bean(service, "onValidated");
 
         from("kafka:orders.rejected?consumersCount=1")
                 .unmarshal().json(JsonLibrary.Jackson, Order.class)
-                .bean(service, "saveOrUpdate(${body}, 'REJECTED')");
+                .bean(service, "onRejected");
 
         from("kafka:orders.notified?consumersCount=1")
                 .unmarshal().json(JsonLibrary.Jackson, Order.class)
-                .bean(service, "saveOrUpdate(${body}, 'NOTIFIED')");
+                .bean(service, "onNotificationSent");
     }
 }
