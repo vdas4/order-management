@@ -1,6 +1,6 @@
 package com.order.app.orderstatusservice.api;
-import com.order.app.orderstatusservice.entity.OrderStatusEntity;
-import com.order.app.orderstatusservice.repo.OrderStatusRepository;
+import com.order.app.orderstatusservice.entity.OrderEntity;
+import com.order.app.orderstatusservice.repo.OrderRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/orders")
 public class OrderStatusController {
 
-    private final OrderStatusRepository repo;
+    private final OrderRepository repo;
 
-    public OrderStatusController(OrderStatusRepository repo) {
+    public OrderStatusController(OrderRepository repo) {
         this.repo = repo;
     }
 
     @GetMapping("/{orderId}")
     public ResponseEntity<?> get(@PathVariable String orderId) {
-        Optional<OrderStatusEntity> rec = repo.findById(orderId);
+        Optional<OrderEntity> rec = repo.findById(orderId);
         return rec.<ResponseEntity<?>>map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -27,7 +27,7 @@ public class OrderStatusController {
     public ResponseEntity<?> list(@RequestParam(required = false) String status) {
         if (status == null) return ResponseEntity.ok(repo.findAll());
         return ResponseEntity.ok(
-                repo.findAll().stream().filter(r -> status.equalsIgnoreCase(r.getStatus())).toList()
+                repo.findAll().stream().filter(r -> status.equalsIgnoreCase(r.getDecisionStatus().toString())).toList()
         );
     }
 }

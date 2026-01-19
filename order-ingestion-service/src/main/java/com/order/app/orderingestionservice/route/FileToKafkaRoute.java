@@ -18,7 +18,7 @@ public class FileToKafkaRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 //        from("file:C:/microservice-poc/order-management/order-ingestion-service/orders-inbox?noop=true")
-          from("ftp://ftpuser:ftpuser123@172.24.20.247/orders?binary=true&passiveMode=true&delete=true&readLock=changed&readLockMinAge=3000")
+          from("ftp://ftpuser:ftp123@172.20.40.72/orders?binary=true&passiveMode=true&delete=true&readLock=changed&readLockMinAge=3000")
                 .routeId("file-to-kafka")
                 .log("Camel is watching the orders-inbox directory for new files.")
                 .log("File received: ${header.CamelFileName}")
