@@ -22,14 +22,20 @@ public class StatusRoutes extends RouteBuilder {
     public void configure() {
 
         from("kafka:orders.validated?consumersCount=1")
+                .routeId("order-status-validated")
+                .log("Received new order validated from Kafka: ${body}")
                 .unmarshal().json(JsonLibrary.Jackson, Order.class)
                 .bean(service, "onValidated");
 
         from("kafka:orders.rejected?consumersCount=1")
+                .routeId("order-status-rejected")
+                .log("Received new order rejected from Kafka: ${body}")
                 .unmarshal().json(JsonLibrary.Jackson, Order.class)
                 .bean(service, "onRejected");
 
         from("kafka:orders.notified?consumersCount=1")
+                .routeId("order-status-notified")
+                .log("Received new order notified from Kafka: ${body}")
                 .unmarshal().json(JsonLibrary.Jackson, Order.class)
                 .bean(service, "onNotificationSent");
     }
